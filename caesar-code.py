@@ -1,0 +1,56 @@
+def num_offset(num):
+    """Checking offset number to be in range of A to Z code values
+       Preconditions:
+       num = int
+
+       Result:
+       boolean
+    """
+    if 90 >= num >= 65: #Conditions for offset from A = 65 to Z = 90
+        return True
+    else:
+        return False
+
+def turn_around(num):
+    """ To turn around the alphabet when offset in negative or positive
+        Preconditions:
+        num = int
+
+        Result
+        num = int value for the new letter
+    """
+    if num > 90:
+        num = 64 + (num - 90)
+        return num
+    elif num < 65:
+        num = 90 - (64 - num)
+        return num
+    else:
+        return num
+
+def caesar(string,offset):
+    """The two inputs are the string in upper-case letters and the integer offset.
+       Each character is replaced by the character offset positions away in the alphabet.
+       Preconditions:
+       string = str UPPERCASE only
+       offset = int
+
+       Result:
+       new_string = str with new letters
+    """
+    new_string = "" #Initialization of the new_string
+    val = 0         #Code value of a character
+    for char in string: #For every character in string
+        val = ord(char) #Save code number of the character in val
+        new_string = new_string + chr(turn_around(val + offset)) #New string with new values
+    return new_string
+
+def test_caesar(): #Test function with different results to test caesar code
+    assert caesar("C" , 1) == "D"
+    assert caesar("CAT" , 1) == "DBU"
+    assert caesar("AZ" , 1) == "BA"
+    assert caesar("ZAZA" , -1) == "YZYZ"
+
+test_caesar() #Calling the test fuction , if true no output should be given
+
+        
